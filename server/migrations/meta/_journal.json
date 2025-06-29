@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1751209763752,
+      "tag": "0000_lonely_doctor_spectrum",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1751209887370,
+      "tag": "0001_smooth_invaders",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1751210153752,
+      "tag": "0002_chunky_boom_boom",
+      "breakpoints": true
+    }
+  ]
+}
