@@ -33,13 +33,15 @@ import ExpenseCard from '~/components/cards/ExpenseCard.vue';
 import NoteCard from '~/components/cards/NoteCard.vue';
 import ListCard from '~/components/cards/ListCard.vue';
 
-const { currentHome } = useHome();
+const { currentHome } = await useHome();
 
-const { data: feedItems } = await useFetch(() => `/api/homes/${currentHome.value?.id}/feed`, {});
+const { data: feedItems } = await useFetch(() => `/api/homes/${currentHome.value?.id}/feed`, {
+  default: () => [],
+});
 
 // const feedItems = getFeedItems().sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-const getCardComponent = (type) => {
+const getCardComponent = (type: FeedItem['type']) => {
   switch (type) {
     case 'expense':
       return ExpenseCard;

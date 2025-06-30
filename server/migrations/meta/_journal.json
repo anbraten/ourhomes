@@ -22,6 +22,20 @@
       "when": 1751210153752,
       "tag": "0002_chunky_boom_boom",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1751286316568,
+      "tag": "0003_thin_kinsey_walden",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1751286627269,
+      "tag": "0004_cynical_firebird",
+      "breakpoints": true
     }
   ]
 }

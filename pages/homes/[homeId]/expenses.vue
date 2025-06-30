@@ -31,17 +31,17 @@
     <div class="card mb-6">
       <h2 class="text-lg font-semibold text-gray-900 mb-4">All Balances</h2>
       <div class="space-y-3">
-        <div v-for="(balance, userId) in balances" :key="userId" class="flex items-center justify-between py-2">
+        <div
+          v-for="(member, userId) in membersWithBalances"
+          :key="userId"
+          class="flex items-center justify-between py-2"
+        >
           <div class="flex items-center">
-            <img
-              :src="getUserById(userId)?.avatar"
-              :alt="getUserById(userId)?.name"
-              class="w-8 h-8 rounded-full mr-3"
-            />
-            <span class="font-medium text-gray-900">{{ getUserById(userId)?.name }}</span>
+            <img :src="member.avatar" :alt="member.name" class="w-8 h-8 rounded-full mr-3" />
+            <span class="font-medium text-gray-900">{{ member.name }}</span>
           </div>
-          <span class="font-semibold" :class="balance >= 0 ? 'text-secondary-600' : 'text-red-600'">
-            {{ balance >= 0 ? '+' : '' }}${{ Math.abs(balance).toFixed(2) }}
+          <span class="font-semibold" :class="member.balance >= 0 ? 'text-secondary-600' : 'text-red-600'">
+            {{ member.balance >= 0 ? '+' : '' }}${{ Math.abs(member.balance).toFixed(2) }}
           </span>
         </div>
       </div>
@@ -62,43 +62,47 @@
 <script setup lang="ts">
 import ExpenseCard from '~/components/cards/ExpenseCard.vue';
 
-const { currentUser, getUsers } = useHome();
+const { currentUser, getMembers, currentHome } = await useHome();
 
-const users = getUsers();
-const balances = calculateExpenseBalances();
-const currentUserBalance = balances[currentUser.value.id] || 0;
+const { data: expenses } = await useFetch<FeedItem<ExpenseData>[]>(() => `/api/homes/${currentHome.value?.id}/feed`, {
+  query: { type: 'expense' },
+  default: () => [],
+});
 
-const recentExpenses = getFeedItems()
-  .filter((item) => item.type === 'expense')
-  .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+const recentExpenses = expenses.value
+  .toSorted((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   .slice(0, 5);
 
-function getUserById(id) {
-  return users.find((user) => user.id === id);
-}
+const members = await getMembers();
 
-function calculateExpenseBalances() {
-  const expenses = mockFeedItems.filter((item) => item.type === 'expense');
-  const balances: Record<string, number> = {};
+type Member = (typeof members.value)[0];
+
+const membersWithBalances = computed(() => {
+  const balances: Record<number, Member & { balance: number }> = {};
 
   // Initialize balances
-  mockUsers.forEach((user) => {
-    balances[user.id] = 0;
+  members.value.forEach((user) => {
+    balances[user.id] = {
+      ...user,
+      balance: 0,
+    };
   });
 
-  expenses.forEach((expense) => {
+  expenses.value.forEach((expense) => {
     const expenseData = expense.data as ExpenseData;
     const amountPerPerson = expenseData.amount / expenseData.participants.length;
 
     expenseData.participants.forEach((participantId) => {
       if (participantId === expenseData.paidBy) {
-        balances[participantId] += expenseData.amount - amountPerPerson;
+        balances[participantId].balance += expenseData.amount - amountPerPerson;
       } else {
-        balances[participantId] -= amountPerPerson;
+        balances[participantId].balance -= amountPerPerson;
       }
     });
   });
 
   return balances;
-}
+});
+
+const currentUserBalance = currentUser.value ? membersWithBalances.value[currentUser.value?.id]?.balance : 0;
 </script>

@@ -45,8 +45,6 @@
 </template>
 
 <script setup lang="ts">
-const { gethomes, getUsers } = useHome();
-
 const { data: homes } = await useFetch('/api/homes');
 
 // Redirect if already has a home selected

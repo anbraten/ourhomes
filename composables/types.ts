@@ -1,30 +1,31 @@
 export interface User {
-  id: string;
+  id: number;
   name: string;
   email: string;
   avatar: string;
 }
 
 export interface home {
-  id: string;
+  id: number;
   name: string;
   members: User[];
   createdAt: Date;
 }
 
-export interface FeedItem {
-  id: string;
+export interface FeedItem<D = unknown> {
+  id: number;
   type: 'note' | 'expense' | 'list';
-  author: User;
+  author: number;
+  homeId: number;
   createdAt: Date;
-  data: any;
+  data: D;
 }
 
 export interface ExpenseData {
   name: string;
   amount: number;
-  paidBy: string;
-  participants: string[];
+  paidBy: number;
+  participants: number[];
   category: string;
 }
 

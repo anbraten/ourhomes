@@ -36,7 +36,7 @@
 
       <div class="space-y-3">
         <div
-          v-for="member in currentHome?.members"
+          v-for="member in members"
           :key="member.id"
           class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
         >
@@ -83,11 +83,13 @@
 <script setup lang="ts">
 import { PlusIcon, TrashIcon, ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
 
-const { currentHome, currentUser } = useHome();
+const { currentHome, currentUser, getMembers } = await useHome();
+
+const members = await getMembers();
 
 const homeName = ref(currentHome.value?.name || '');
 
-const formatDate = (date) => {
+const formatDate = (date?: string) => {
   if (!date) return '';
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',

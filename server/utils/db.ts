@@ -31,7 +31,15 @@ export const homesTable = sqliteTable('homes', {
   id: integer('id').primaryKey(),
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull(),
   name: text('name').notNull(),
-  members: text('members', { mode: 'json' }),
+});
+
+export const homesMembersTable = sqliteTable('homes-members', {
+  homeId: integer('home-id')
+    .references(() => homesTable.id)
+    .notNull(),
+  userId: integer('user-id')
+    .references(() => usersTable.id)
+    .notNull(),
 });
 
 export const feedItemsTable = sqliteTable('feed-items', {
@@ -44,5 +52,5 @@ export const feedItemsTable = sqliteTable('feed-items', {
   author: integer('author')
     .references(() => usersTable.id)
     .notNull(),
-  data: text('data', { mode: 'json' }).$type<unknown>().notNull(),
+  data: text('data', { mode: 'json' }).notNull(),
 });
