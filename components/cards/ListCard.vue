@@ -45,9 +45,9 @@
     </div>
 
     <div class="flex items-center justify-between text-xs text-gray-500 pt-2 border-t">
-      <div class="flex items-center">
-        <img :src="item.author.avatar" :alt="item.author.name" class="w-4 h-4 rounded-full mr-1" />
-        <span>{{ item.author.name }}</span>
+      <div v-if="author" class="flex items-center">
+        <img :src="author.avatar" :alt="author.name" class="w-4 h-4 rounded-full mr-1" />
+        <span>{{ author.name }}</span>
       </div>
       <span>{{ formatTime(item.createdAt) }}</span>
     </div>
@@ -57,24 +57,14 @@
 <script setup lang="ts">
 import { CheckCircleIcon, ShoppingCartIcon, CheckIcon } from '@heroicons/vue/24/outline';
 
-const props = defineProps({
-  item: Object,
-});
+const props = defineProps<{
+  item: FeedItem<ListData>;
+}>();
 
-const completedCount = computed(() => {
-  return props.item.data.items.filter((item) => item.completed).length;
-});
+const completedCount = computed(() => props.item.data.items.filter((item) => item.completed).length);
 
-const totalCount = computed(() => {
-  return props.item.data.items.length;
-});
+const totalCount = computed(() => props.item.data.items.length);
 
-const formatTime = (date) => {
-  return new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
+const { getMember } = await useHome();
+const author = computed(() => getMember(props.item.author));
 </script>

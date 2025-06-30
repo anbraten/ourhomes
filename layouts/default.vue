@@ -110,7 +110,5 @@
 <script setup lang="ts">
 import { HomeIcon, CurrencyDollarIcon, CogIcon } from '@heroicons/vue/24/outline';
 
-const { currentHome, getMembers } = await useHome();
-
-const members = await getMembers();
+const { currentHome, members } = await useHome();
 </script>

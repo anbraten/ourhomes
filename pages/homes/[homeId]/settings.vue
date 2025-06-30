@@ -83,9 +83,7 @@
 <script setup lang="ts">
 import { PlusIcon, TrashIcon, ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
 
-const { currentHome, currentUser, getMembers } = await useHome();
-
-const members = await getMembers();
+const { currentHome, currentUser, members } = await useHome();
 
 const homeName = ref(currentHome.value?.name || '');
 

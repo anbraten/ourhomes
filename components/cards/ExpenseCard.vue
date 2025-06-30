@@ -61,23 +61,9 @@ const props = defineProps<{
   compact?: boolean;
 }>();
 
-const { getMembers } = await useHome();
-const members = await getMembers();
-
-function getMember(id: number) {
-  return members.value?.find((member) => member.id === id);
-}
+const { getMember } = await useHome();
 
 const author = computed(() => getMember(props.item.author));
 const paidBy = computed(() => getMember(props.item.data.paidBy));
 const participants = computed(() => props.item.data.participants.map((id) => getMember(id)));
-
-function formatTime(date: Date | string) {
-  return new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-}
 </script>

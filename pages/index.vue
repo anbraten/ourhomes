@@ -8,7 +8,7 @@
 
       <div class="space-y-4">
         <NuxtLink
-          v-for="home in homes"
+          v-for="home in homesWithMembers"
           :key="home.id"
           :to="`/homes/${home.id}`"
           class="block card cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all duration-200"
@@ -45,7 +45,16 @@
 </template>
 
 <script setup lang="ts">
-const { data: homes } = await useFetch('/api/homes');
+const { data: homes } = await useFetch('/api/homes', {
+  default: () => [],
+});
+
+const homesWithMembers = computed(() => {
+  return homes.value.map((home: any) => ({
+    ...home,
+    members: [], // TODO: add members
+  }));
+});
 
 // Redirect if already has a home selected
 onMounted(() => {

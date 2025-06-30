@@ -62,7 +62,7 @@
 <script setup lang="ts">
 import ExpenseCard from '~/components/cards/ExpenseCard.vue';
 
-const { currentUser, getMembers, currentHome } = await useHome();
+const { currentUser, members, currentHome } = await useHome();
 
 const { data: expenses } = await useFetch<FeedItem<ExpenseData>[]>(() => `/api/homes/${currentHome.value?.id}/feed`, {
   query: { type: 'expense' },
@@ -72,8 +72,6 @@ const { data: expenses } = await useFetch<FeedItem<ExpenseData>[]>(() => `/api/h
 const recentExpenses = expenses.value
   .toSorted((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   .slice(0, 5);
-
-const members = await getMembers();
 
 type Member = (typeof members.value)[0];
 
