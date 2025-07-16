@@ -1,28 +1,20 @@
 export async function useHome() {
+  const nuxtApp = useNuxtApp();
   const route = useRoute();
   const homeId = computed(() => route.params.homeId as string);
-  const { data: currentHome, execute: fetchCurrentHome } = useFetch(() => `/api/homes/${homeId.value}`, {
-    key: () => `GET /api/homes/${homeId.value}`,
-    immediate: false,
-    watch: false,
-  });
+  const { data: currentHome } = await nuxtApp.runWithContext(
+    async () =>
+      await useFetch(() => `/api/homes/${homeId.value}`, {
+        key: () => `GET /api/homes/${homeId.value}`,
+      }),
+  );
 
-  const { data: members, execute: fetchMembers } = useFetch(() => `/api/homes/${homeId.value}/members`, {
-    key: () => `GET /api/homes/${homeId.value}/members`,
-    default: () => [],
-    immediate: false,
-    watch: false,
-  });
-
-  watch(
-    homeId,
-    (newHomeId) => {
-      if (newHomeId) {
-        fetchCurrentHome();
-        fetchMembers();
-      }
-    },
-    { immediate: true },
+  const { data: members } = await nuxtApp.runWithContext(
+    async () =>
+      await useFetch(() => `/api/homes/${homeId.value}/members`, {
+        key: () => `GET /api/homes/${homeId.value}/members`,
+        default: () => [],
+      }),
   );
 
   function getMember(_id: string | number) {
