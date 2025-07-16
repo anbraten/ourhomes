@@ -39,8 +39,6 @@ const { data: feedItems } = await useFetch(() => `/api/homes/${currentHome.value
   default: () => [],
 });
 
-// const feedItems = getFeedItems().sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
 const getCardComponent = (type: FeedItem['type']) => {
   switch (type) {
     case 'expense':

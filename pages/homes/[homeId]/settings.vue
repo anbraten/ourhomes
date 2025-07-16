@@ -67,10 +67,6 @@
     <div class="card">
       <h2 class="text-lg font-semibold text-gray-900 mb-4">Actions</h2>
       <div class="space-y-3">
-        <button class="btn btn-secondary w-full justify-start">
-          <ArrowLeftOnRectangleIcon class="w-4 h-4 mr-2" />
-          Switch home
-        </button>
         <button class="btn btn-secondary w-full justify-start text-red-600 hover:bg-red-50">
           <TrashIcon class="w-4 h-4 mr-2" />
           Leave home
@@ -86,13 +82,4 @@ import { PlusIcon, TrashIcon, ArrowLeftOnRectangleIcon } from '@heroicons/vue/24
 const { currentHome, currentUser, members } = await useHome();
 
 const homeName = ref(currentHome.value?.name || '');
-
-const formatDate = (date?: string) => {
-  if (!date) return '';
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
 </script>

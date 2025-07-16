@@ -19,6 +19,7 @@ export default defineEventHandler(async (event) => {
     .select()
     .from(feedItemsTable)
     .where(and(eq(feedItemsTable.homeId, homeId), ...filterConditions))
+    .orderBy(feedItemsTable.createdAt)
     .all();
   return items;
 });
