@@ -1,5 +1,5 @@
 import type { H3Event } from 'h3';
-import { and, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 
 export type AuthSession = {
   userId: number;

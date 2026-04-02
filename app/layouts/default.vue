@@ -5,7 +5,7 @@
     </div>
 
     <!-- Mobile Navigation -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 md:hidden">
+    <!-- <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 md:hidden">
       <div v-if="currentHome" class="flex justify-around py-2">
         <NuxtLink
           :to="`/homes/${currentHome.id}`"
@@ -34,7 +34,7 @@
           <span>Settings</span>
         </NuxtLink>
       </div>
-    </nav>
+    </nav> -->
 
     <!-- Desktop Navigation -->
     <nav class="hidden md:block fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">

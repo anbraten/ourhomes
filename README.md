@@ -10,9 +10,16 @@ App to manage your homes and other shared spaces.
 
 ## TODO
 
-- [ ] Add database and backend
+- [x] Add database and backend
+- [x] Load homes
+- [x] Load feed for home
+- [ ] Create item
+  - [ ] Create expense
+  - [ ] Create list
+  - [ ] Create note
+- [ ] Edit item by click
+- [ ] Delete item from feed
 - [ ] Implement user authentication
-- [ ] Load homes
-- [ ] Load feed for home (allow to filter by type)
-- [ ] Add entry to feed
-- [ ] CRUD home members
+- [ ] Invite members to home
+- [ ] Create home
+- [ ] Allow to filter feed by type

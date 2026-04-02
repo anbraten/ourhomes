@@ -1,4 +1,4 @@
-import { useDb, feedItemsTable } from '~/server/utils/db';
+import { useDb, feedItemsTable } from '#server/utils/db';
 import { eq } from 'drizzle-orm';
 
 export default defineEventHandler(async (event) => {

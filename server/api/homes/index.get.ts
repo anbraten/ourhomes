@@ -1,4 +1,4 @@
-import { useDb, homesTable } from '~/server/utils/db';
+import { useDb, homesTable } from '#server/utils/db';
 import { inArray } from 'drizzle-orm';
 
 export default defineEventHandler(async (event) => {

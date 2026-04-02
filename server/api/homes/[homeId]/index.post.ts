@@ -1,4 +1,4 @@
-import { useDb, homesTable } from '~/server/utils/db';
+import { useDb, homesTable } from '#server/utils/db';
 
 export default defineEventHandler(async (event) => {
   const db = useDb(event);

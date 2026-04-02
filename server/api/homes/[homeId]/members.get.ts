@@ -1,4 +1,4 @@
-import { useDb, homesTable, homesMembersTable } from '~/server/utils/db';
+import { useDb, homesTable, homesMembersTable } from '#server/utils/db';
 import { eq } from 'drizzle-orm';
 
 export default defineEventHandler(async (event) => {

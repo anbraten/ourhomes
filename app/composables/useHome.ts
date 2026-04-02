@@ -11,7 +11,7 @@ export async function useHome() {
 
   const { data: members } = await nuxtApp.runWithContext(
     async () =>
-      await useFetch(() => `/api/homes/${homeId.value}/members`, {
+      await useFetch<User[]>(() => `/api/homes/${homeId.value}/members`, {
         key: () => `GET /api/homes/${homeId.value}/members`,
         default: () => [],
       }),
