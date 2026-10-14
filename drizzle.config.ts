@@ -6,7 +6,7 @@ export default defineConfig({
   schema: './server/utils/db.ts',
   out: './server/migrations',
   dbCredentials: {
-    url: process.env.NUXT_DB_URL!,
-    authToken: process.env.NUXT_DB_TOKEN!,
+    url: process.env.LIBSQL_URL!,
+    authToken: process.env.LIBSQL_AUTH_TOKEN!,
   },
 });

@@ -5,15 +5,14 @@ import type { H3Event } from 'h3';
 
 let db: ReturnType<typeof drizzle> | null = null;
 
-export function useDb(event: H3Event) {
+export function useDb(_event?: H3Event) {
   if (db) {
     return db;
   }
 
-  const config = useRuntimeConfig(event);
   const client = createClient({
-    url: config.db.url,
-    authToken: config.db.token,
+    url: process.env.LIBSQL_URL!,
+    authToken: process.env.LIBSQL_AUTH_TOKEN,
   });
   db = drizzle(client);
   return db;

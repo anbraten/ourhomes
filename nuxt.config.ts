@@ -1,8 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite';
+
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
+  compatibilityDate: '2026-10-14',
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss'],
+  vite: { plugins: [tailwindcss()] },
   css: ['~/assets/css/main.css'],
   app: {
     head: {
@@ -12,12 +14,6 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'Manage your shared home expenses and tasks' },
       ],
-    },
-  },
-  runtimeConfig: {
-    db: {
-      url: '',
-      token: '',
     },
   },
 });
